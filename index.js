@@ -17,7 +17,7 @@ const io=new sock.Server(server,{
                 transports: ['websocket', 'polling'],
         },
         allowEIO3: true
-        }
+        
 })
 
 
