@@ -5,7 +5,7 @@ const cors = require("cors");
 const app=express()
 app.use(
     cors({
-      origin: ["http://localhost:3000", "http://localhost:3001"],
+      origin: ["https://peer-js-meets.vercel.app/", "http://localhost:3001"],
     })
 );
 const server=http.createServer(app)
