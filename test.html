@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="https://cdn.socket.io/4.5.0/socket.io.min.js" integrity="sha384-7EyYLQZgWBi67fBtVxw60/OWl1kjsfrPFcaU0pp0nAh+i8FD068QogUvg85Ewy1k" crossorigin="anonymous"></script>
+</head>
+<body>
+    <div>
+        <input type="text" id="roomid"/>
+        <button onclick="join(event)">Join</button>
+       <input type="text" id="msg"><button onclick="chat(event)">Send</button>
+       <div id="msg-con"></div>
+    </div>
+    <script>
+        const socket=io("http://localhost:1230/")
+
+        function chat(e){
+            const inp=document.getElementById("msg")
+            let id=document.getElementById("roomid")
+            socket.emit("msg",{roomid:id.value,content:inp.value})
+            inp.value=""
+        }
+
+        function send(e){
+            let id=document.getElementById("roomid")
+            socket.emit("mevent",{roomid:id.value,content:e.srcElement.value})
+        }
+        socket.on("data",(d)=>{
+            const con=document.getElementById("msg-con")
+            const m=document.createElement("div")
+            m.innerHTML=d.content
+            con.appendChild(m)
+        })
+
+        function join(e){
+            let id=document.getElementById("roomid")
+            socket.emit("join",{roomid:id.value})
+        }
+
+    </script>
+</body>
+</html>
