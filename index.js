@@ -10,9 +10,14 @@ app.use(
 );
 const server=http.createServer(app)
 const io=new sock.Server(server,{
-    cors: {
-        origin: "*",
-      }
+     cors: {
+                origin: "*",
+                methods: ["GET", "POST"],
+                credentials: true,
+                transports: ['websocket', 'polling'],
+        },
+        allowEIO3: true
+        }
 })
 
 
