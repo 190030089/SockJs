@@ -1,8 +1,13 @@
 const http=require("http")
 const express=require("express")
 const sock=require("socket.io")
-
+const cors = require("cors"); 
 const app=express()
+app.use(
+    cors({
+      origin: ["http://localhost:3000", "http://localhost:3001"],
+    })
+);
 const server=http.createServer(app)
 const io=new sock.Server(server,{
     cors: {
